@@ -23,27 +23,13 @@ type Review {
   rating: Int
 }
 
-type Invoice {
-  invoiceId: String!
-  amount: Float!
-  createdOn: Float!
-  issuedTo: String!
-}
-
-type Order {
-  orderId: String!
-}
-
 type Query {
   courses: [Course!]!
   course(id: Int!): Course!
-  order: Order!
-  invoice: Invoice!
-  review: Review!
 }
 
 type Mutation {
-  addCourse(data: CourseInput!): String!
+  addCourse(input: CourseInput!): Course!
 }
 
 input CourseInput {

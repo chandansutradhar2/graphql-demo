@@ -1,5 +1,6 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { CourseService } from './course.service';
+import { ReviewService } from './review.service';
 import { Course, CourseInput, Review } from './schema/course.chema';
 import { Invoice } from './schema/invoice.shema';
 import { Order } from './schema/order.schema';
@@ -7,7 +8,7 @@ import { Order } from './schema/order.schema';
 
 @Resolver(of => Course)
 export class CourseResolver {
-    constructor(private courseSvc: CourseService) {
+    constructor(private courseSvc: CourseService, private reviewSvc: ReviewService) {
 
     }
 
@@ -21,28 +22,25 @@ export class CourseResolver {
         return this.courseSvc.findCourseById(id);
     }
 
-    @Query(returns => Order)
-    order() {
 
+    @ResolveField()
+    async reviews(@Parent() course: Course) {
+        const { id } = course;
+        return this.reviewSvc.findAll(id)
     }
+    // @Query(returns => Invoice)
+    // invoice() {
+    //     const inv = new Invoice();
+    //     inv.amount = 300;
+    //     inv.createdOn = Date.now();
+    //     inv.invoiceId = "1";
+    //     inv.issuedTo = "Sun Pharmay Ltd"
+    //     return new Invoice();
+    // }
 
-    @Query(returns => Invoice)
-    invoice() {
-        const inv = new Invoice();
-        inv.amount = 300;
-        inv.createdOn = Date.now();
-        inv.invoiceId = "1";
-        inv.issuedTo = "Sun Pharmay Ltd"
-        return new Invoice();
-    }
 
-    @Query(reviews => Review)
-    review(): Review {
-        return new Review();
-    }
-
-    @Mutation(returns => String, { name: 'addCourse' })
-    async createCourse(@Args('data') course: CourseInput) {
+    @Mutation(() => Course, { name: 'addCourse' })
+    async createCourse(@Args('input', { type: () => CourseInput }) course: CourseInput) {
         return this.courseSvc.addCourse(course);
     }
 

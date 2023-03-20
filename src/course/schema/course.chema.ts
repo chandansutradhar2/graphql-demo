@@ -48,7 +48,6 @@ export class Review {
 @InputType()
 export class CourseInput {
     @Field() rate: number;
-
     @Field() name: string;
     @Field() createdOn: string;
     @Field() createdBy: string;
