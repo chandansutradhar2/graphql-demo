@@ -23,6 +23,11 @@ type Review {
   rating: Int
 }
 
+type Comment {
+  value: String!
+  createdOn: String!
+}
+
 type Query {
   courses: [Course!]!
   course(id: Int!): Course!
@@ -39,4 +44,8 @@ input CourseInput {
   createdBy: String!
   id: Float!
   description: String!
+}
+
+type Subscription {
+  commentAdded: Comment!
 }

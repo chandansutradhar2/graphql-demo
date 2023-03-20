@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Course, CourseInput, } from './schema/course.chema';
 import { Course as ICourse, Review } from '../graphql';
 import { Args, Int } from '@nestjs/graphql';
+import { CommentInput } from './schema/comment.schema';
 @Injectable()
 export class CourseService {
     courses: Course[];
@@ -77,4 +78,7 @@ export class CourseService {
     }
 
 
+    async addComment(comment:CommentInput) {
+        
+    }
 }
