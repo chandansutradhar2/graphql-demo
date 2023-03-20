@@ -1,0 +1,56 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  firstName: String!
+}
+
+type Course {
+  id: Int
+  name: String
+  description: String
+  rate: Float
+  createdBy: String!
+  subscribedBy: User
+  reviews: [Review!]
+}
+
+type Review {
+  createdBy: String
+  createdOn: Int
+  comment: String
+  rating: Int
+}
+
+type Invoice {
+  invoiceId: String!
+  amount: Float!
+  createdOn: Float!
+  issuedTo: String!
+}
+
+type Order {
+  orderId: String!
+}
+
+type Query {
+  courses: [Course!]!
+  course(id: Int!): Course!
+  order: Order!
+  invoice: Invoice!
+  review: Review!
+}
+
+type Mutation {
+  addCourse(data: CourseInput!): String!
+}
+
+input CourseInput {
+  rate: Float!
+  name: String!
+  createdOn: String!
+  createdBy: String!
+  id: Float!
+  description: String!
+}
